@@ -2,12 +2,14 @@ package candy;
 
 public class CandyGame {
 
-	public CandyGame(int i) {
+	private int boardDimension;
 
+	public CandyGame(int i) {
+		boardDimension = i;
 	}
 
 	public Object[][] getBoard() {
-		return new Object[9][9];
+		return new Object[boardDimension][boardDimension];
 	}
 
 }
