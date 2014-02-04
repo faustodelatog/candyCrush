@@ -35,7 +35,7 @@ public class CandyGameTest {
 
 	@Test
 	public void shouldFillBoardWithSymbols() {
-		String[] symbols = { "A", "B", "C", "D" };
+		Object[] symbols = { "A", "B", "C", "D" };
 		game.fill(symbols);
 		Object[][] board = game.getBoard();
 		for (Object[] row : board) {
@@ -52,6 +52,42 @@ public class CandyGameTest {
 			}
 		}
 		return false;
+	}
+
+	@Test
+	public void shouldFillBoardWithSymbolsRandom() {
+		Object[] symbols = { "A", "B", "C", "D" };
+		game.fill(symbols);
+		Object[][] board1 = copyMatrix(game.getBoard(), 9);
+		game.fill(symbols);
+		Object[][] board2 = game.getBoard();
+
+		boolean isRandom = false;
+		for (int i = 0; i < 9; i++) {
+			isRandom = false;
+			for (int j = 0; j < 9; j++) {
+				if (board2[i][j] != board1[i][j]) {
+					isRandom = true;
+					break;
+				}
+				if (j == 8)
+					Assert.fail(String
+							.format("No existe ningun elemento diferente en la fila %s",
+									i));
+			}
+		}
+
+		Assert.assertTrue(isRandom);
+	}
+
+	private Object[][] copyMatrix(Object[][] matrix, int d) {
+		Object[][] result = new Object[d][d];
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				result[i][j] = matrix[i][j];
+			}
+		}
+		return result;
 	}
 
 }
