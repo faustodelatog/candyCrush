@@ -1,5 +1,6 @@
 package candy;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class CandyGameTest {
