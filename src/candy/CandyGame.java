@@ -1,5 +1,7 @@
 package candy;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CandyGame {
@@ -65,6 +67,23 @@ public class CandyGame {
 		Object origin = board[coordinate.getY()][coordinate.getX()];
 		Object target = board[coordinate.getY() + 1][coordinate.getX()];
 		return origin.equals(target);
+	}
+
+	public List<Coordinate> getEqualAdjacentElements(Coordinate coordinate) {
+		List<Coordinate> elements = new ArrayList<Coordinate>();
+		if(isLeftElementEqualTo(coordinate)){
+			elements.add(coordinate.left());
+		}
+		if(isRightElementEqualTo(coordinate)){
+			elements.add(coordinate.right());
+		}
+		if(isTopElementEqualTo(coordinate)){
+			elements.add(coordinate.top());
+		}
+		if(isBottomElementEqualTo(coordinate)){
+			elements.add(coordinate.bottom());
+		}
+		return elements;
 	}
 
 }
