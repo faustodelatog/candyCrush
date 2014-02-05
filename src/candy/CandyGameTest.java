@@ -7,6 +7,17 @@ import org.junit.Test;
 public class CandyGameTest {
 
 	private CandyGame game = null;
+	private Object[] symbols = { "A", "B", "C", "D" };
+	private Object[][] board = { 
+			{ 1, 2, 4, 2, 6, 7, 8, 5, 3 },
+			{ 1, 2, 3, 2, 5, 5, 4, 3, 2 },
+			{ 1, 2, 2, 2, 2, 2, 2, 6, 3 }, 
+			{ 1, 2, 3, 2, 1, 4, 3, 5, 7 },
+			{ 1, 1, 3, 2, 8, 8, 6, 5, 3 }, 
+			{ 2, 3, 5, 2, 2, 8, 3, 1, 2 },
+			{ 4, 3, 2, 2, 7, 8, 7, 3, 1 }, 
+			{ 7, 6, 3, 2, 9, 8, 8, 3, 4 },
+			{ 2, 4, 5, 6, 6, 7, 7, 2, 1 } };
 
 	@Before
 	public void initTest() {
@@ -56,9 +67,9 @@ public class CandyGameTest {
 
 	@Test
 	public void shouldFillBoardWithSymbolsRandom() {
-		Object[] symbols = { "A", "B", "C", "D" };
 		game.fill(symbols);
-		Object[][] board1 = copyMatrix(game.getBoard(), 9);
+		Object[][] board1 = copyMatrix(game.getBoard());
+
 		game.fill(symbols);
 		Object[][] board2 = game.getBoard();
 
@@ -80,14 +91,78 @@ public class CandyGameTest {
 		Assert.assertTrue(isRandom);
 	}
 
-	private Object[][] copyMatrix(Object[][] matrix, int d) {
-		Object[][] result = new Object[d][d];
+	private Object[][] copyMatrix(Object[][] matrix) {
+		Object[][] result = new Object[matrix.length][matrix.length];
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[i].length; j++) {
 				result[i][j] = matrix[i][j];
 			}
 		}
 		return result;
+	}
+
+	@Test
+	public void shouldLeftElementIsEqualTo() {
+		game.setBoard(board);
+		boolean equal = game.isLeftElementEqualTo(new Coordinate(3,2));
+			
+		Assert.assertTrue(equal);
+	}
+
+	@Test
+	public void shouldLeftElementIsNotEqualTo() {
+		game.setBoard(board);
+		boolean equal = game.isLeftElementEqualTo(new Coordinate(1,2));
+			
+		Assert.assertFalse(equal);
+	}
+
+	@Test
+	public void shouldRightElementIsEqualTo() {
+		game.setBoard(board);
+		boolean equal = game.isRightElementEqualTo(new Coordinate(4,4));
+			
+		Assert.assertTrue(equal);
+	}
+
+	@Test
+	public void shouldRightElementIsNotEqualTo() {
+		game.setBoard(board);
+		boolean equal = game.isRightElementEqualTo(new Coordinate(4,5));
+			
+		Assert.assertFalse(equal);
+	}
+
+	@Test
+	public void shouldTopElementIsEqualTo() {
+		game.setBoard(board);
+		boolean equal = game.isTopElementEqualTo(new Coordinate(5,5));
+			
+		Assert.assertTrue(equal);
+	}
+
+	@Test
+	public void shouldTopElementIsNotEqualTo() {
+		game.setBoard(board);
+		boolean equal = game.isTopElementEqualTo(new Coordinate(6,6));
+			
+		Assert.assertFalse(equal);
+	}
+
+	@Test
+	public void shouldBottomElementIsEqualTo() {
+		game.setBoard(board);
+		boolean equal = game.isBottomElementEqualTo(new Coordinate(1,5));
+			
+		Assert.assertTrue(equal);
+	}
+
+	@Test
+	public void shouldBottomElementIsNotEqualTo() {
+		game.setBoard(board);
+		boolean equal = game.isBottomElementEqualTo(new Coordinate(7,7));
+			
+		Assert.assertFalse(equal);
 	}
 
 }
