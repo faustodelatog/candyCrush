@@ -3,6 +3,7 @@ package candy;
 public class Coordinate {
 
 	private int x, y;
+	private Coordinate left, right, top, bottom;
 	
 	public Coordinate(int x, int y) {
 		this.x = x;
@@ -18,19 +19,33 @@ public class Coordinate {
 	}
 
 	public Coordinate left(){
-		return new Coordinate(x-1, y);
+		if(left == null){
+			left = new Coordinate(x-1, y);
+		}
+		return left;
 	}
 
 	public Coordinate right(){
-		return new Coordinate(x+1, y);
+		if(right == null){
+			right = new Coordinate(x+1, y);
+		}
+		return right;
 	}
 
 	public Coordinate top(){
-		return new Coordinate(x, y-1);
+		if(top == null){
+			top = new Coordinate(x, y-1);
+		}
+		return top;
+		
 	}
 
 	public Coordinate bottom(){
-		return new Coordinate(x, y+1);
+		if(bottom == null){
+			bottom = new Coordinate(x, y+1);
+		}
+		return bottom;
+		
 	}
 
 	@Override
@@ -58,6 +73,12 @@ public class Coordinate {
 		return true;
 	}
 	
+	public boolean isValid(int max){
+		return isValid(x, max) && isValid(y, max);
+	}
 	
+	private boolean isValid(int i, int max){
+		return i >= 0 && i <=max;
+	}
 	
 }

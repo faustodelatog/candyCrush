@@ -2,85 +2,44 @@ package candy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class CandyGame {
 
 	private Object[][] board;
+	private ElementComparator comparator;
+	private BoardFiller filler;
 
 	public CandyGame(int i) {
-		board = new String[i][i];
+		this(new Object[i][i]);
 	}
-
-	public Object[][] getBoard() {
-		return board;
+	
+	public CandyGame(Object[][] board) {
+		this.board = board;
+		comparator = new ElementComparator(board);
+		filler = new BoardFiller(board);
 	}
 
 	public void fill(Object[] symbols) {
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				board[i][j] = symbols[getRandom(0, symbols.length)];
-			}
-		}
+		filler.fill(symbols);
 	}
 
-	private int getRandom(int min, int max) {
-		Random rand = new Random();
-		return rand.nextInt(max) + min;
+	// Solo por test tiene razon este metodo
+	public Object[][] getBoard() {
+		return board;
 	}
-
-	public void setBoard(Object[][] board) {
-		this.board = board;
-	}
-
-	public boolean isLeftElementEqualTo(Coordinate coordinate) {
-		if(coordinate.getX() == 0){
-			return false;
-		}
-		Object origin = board[coordinate.getY()][coordinate.getX()];
-		Object target = board[coordinate.getY()][coordinate.getX() - 1];
-		return origin.equals(target);
-	}
-
-	public boolean isRightElementEqualTo(Coordinate coordinate) {
-		if(coordinate.getX() == board.length - 1){
-			return false;
-		}
-		Object origin = board[coordinate.getY()][coordinate.getX()];
-		Object target = board[coordinate.getY()][coordinate.getX() + 1];
-		return origin.equals(target);
-	}
-
-	public boolean isTopElementEqualTo(Coordinate coordinate) {
-		if(coordinate.getY() == 0){
-			return false;
-		}
-		Object origin = board[coordinate.getY()][coordinate.getX()];
-		Object target = board[coordinate.getY() - 1][coordinate.getX()];
-		return origin.equals(target);
-	}
-
-	public boolean isBottomElementEqualTo(Coordinate coordinate) {
-		if(coordinate.getY() == board.length - 1){
-			return false;
-		}
-		Object origin = board[coordinate.getY()][coordinate.getX()];
-		Object target = board[coordinate.getY() + 1][coordinate.getX()];
-		return origin.equals(target);
-	}
-
+	
 	public List<Coordinate> getEqualAdjacentElements(Coordinate coordinate) {
 		List<Coordinate> elements = new ArrayList<Coordinate>();
-		if(isLeftElementEqualTo(coordinate)){
+		if(comparator.isLeftElementEqualTo(coordinate)){
 			elements.add(coordinate.left());
 		}
-		if(isRightElementEqualTo(coordinate)){
+		if(comparator.isRightElementEqualTo(coordinate)){
 			elements.add(coordinate.right());
 		}
-		if(isTopElementEqualTo(coordinate)){
+		if(comparator.isTopElementEqualTo(coordinate)){
 			elements.add(coordinate.top());
 		}
-		if(isBottomElementEqualTo(coordinate)){
+		if(comparator.isBottomElementEqualTo(coordinate)){
 			elements.add(coordinate.bottom());
 		}
 		return elements;
