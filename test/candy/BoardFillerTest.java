@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BoardFillerTest {
+public class BoardFillerTest extends BaseTest {
 	
 	private BoardFiller filler = null;
 	private Object[][] board = new Object[10][10];
