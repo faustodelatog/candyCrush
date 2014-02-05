@@ -80,5 +80,11 @@ public class Coordinate {
 	private boolean isValid(int i, int max){
 		return i >= 0 && i <=max;
 	}
+
+	@Override
+	public String toString() {
+		return "Coordinate [x=" + x + ", y=" + y + "]";
+	}
+	
 	
 }

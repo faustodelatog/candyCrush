@@ -45,4 +45,22 @@ public class CandyGame {
 		return elements;
 	}
 
+	public List<Coordinate> getAllConsecutiveEqualElements(Coordinate element) {
+		List<Coordinate> result = new ArrayList<Coordinate>();
+		setElements(result, element);
+		return result;
+	}
+	
+	private void setElements(List<Coordinate> elements, Coordinate origin){
+		if(elements.contains(origin)){
+			return;
+		}
+		elements.add(origin);
+		List<Coordinate> equalAdjacents = getEqualAdjacentElements(origin);
+		for (Coordinate adjacent : equalAdjacents) {
+			setElements(elements, adjacent);
+		}
+		
+	}
+
 }
